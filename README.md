@@ -1,1 +1,2 @@
 # IDP-Waterkering
+De waterkering in de Nieuwe Waterweg, of Maeslantkering, is het laatste onderdeel van de Delta Werken die Nederland beschermen tegen hoog water in het algemeen en de zee in het bijzonder. De Maeslantkering bestaat uit twee grote sluisdeuren die bij extreem weer worden gesloten en zo de nieuwe waterweg afsluiten van de Noord Zee.
