@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Waterkering</title>
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+            /*background: #050621;*/
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        [[ message ]]
+        <canvas id="waterkering" width="1440" height="560"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script>
+
+    // Variables
+    var app, canvas, chartInstance;
+
+    // Initaliase Vue
+    function initVue() {
+        app = new Vue({
+            el: '#app',
+            delimiters: ['[[',']]'],
+            data: {
+                message: 500
+            }
+        });
+    } initVue();
+
+    // Initaliase ChartJS
+    function initChart() {
+
+        timeList = [];
+        dataList = [];
+        avaragedataList = [];
+        for (var i = 0; i < 60; i++) {
+            time = moment().subtract(i, 'seconds').format('H:mm:ss');
+            timeList.push(time);
+            dataList.push(0);
+            if (i % 5 == 0) {
+                avaragedataList.push(0);
+            }
+        }
+
+        canvas = document.getElementById('waterkering').getContext('2d');
+
+        var gradient = canvas.createLinearGradient(0, 0, 0, 450);
+        gradient.addColorStop(0, 'rgba(170,170,170, 0.35)');
+        gradient.addColorStop(1, 'rgba(170,170,170, 0)');
+
+        chartInstance = new Chart(canvas, {
+            type: 'line',
+            data: {
+                xLabels: timeList,
+                yLabels: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+                datasets: [
+                    {
+                        label: 'waterpijl', data: dataList, backgroundColor: gradient, lineTension: 0.5,
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            color: "rgba(170, 170, 170, 0)",
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 1000,
+                            stepSize: 200,
+                            beginAtZero: true,
+                        },
+                        gridLines: {
+                            color: "rgba(170, 170, 170, 0.15)",
+                        }
+                    }]
+                }
+            }
+        });
+
+    } initChart();
+
+    console.log(chartInstance.data.datasets[0].data);
+    console.log(avaragedataList);
+    function updateChart(waterstand) {
+        data = chartInstance.data.datasets[0].data;
+        labels = chartInstance.data.xLabels;
+        data.shift();
+        labels.shift();
+        data.push(waterstand)
+        time = moment().format('H:mm:ss');
+        labels.push(time);
+        chartInstance.update();
+    }
+
+    // Initaliase Socket
+    function initSocket() {
+        // connection gets bumped over to WebSocket consumers
+        socket = new WebSocket("ws://" + window.location.host + "/waterstand/");
+        socket.onmessage = function(e) {
+            // console.log(e.data);
+            updateChart(e.data);
+            app._data.message = e.data;
+        }
+
+        socket.onopen = function() {
+            console.log('start requesting:');
+            function getWaterkering(){
+                socket.send(app._data.message);
+            }
+            setInterval(getWaterkering, 500);
+        }
+
+        // Call onopen directly if socket is already open
+        if (socket.readyState == WebSocket.OPEN) socket.onopen();
+    } initSocket();
+    </script>
+</body>
+</html>
