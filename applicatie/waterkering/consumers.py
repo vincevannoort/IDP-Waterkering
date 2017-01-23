@@ -3,20 +3,17 @@ from channels.handler import AsgiHandler
 from channels import Group
 from random import randrange
 
-# Waterkering stand
-def waterkeringStand(message):
-    return int(message.content['text']) + randrange(-30, 30 + 1)
-
 # Connected to websocket.connect
-def ws_add(message):
+def connect(message):
     message.reply_channel.send({"accept": True})
     Group("waterstand").add(message.reply_channel)
 
 # Connected to websocket.receive
-def ws_message(message):
-    value = waterkeringStand(message)
-    Group("waterstand").send({"text": "{}".format(value)})
+def update(message):
+    # get data | from sensors.py
+    # save data | from sensors.py
+    Group("waterstand").send({"text": "{}".format(message + 5)})
 
 # Connected to websocket.disconnect
-def ws_disconnect(message):
+def disconnect(message):
     Group("waterstand").discard(message.reply_channel)
