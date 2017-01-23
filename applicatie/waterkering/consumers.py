@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from channels.handler import AsgiHandler
 from channels import Group
-from random import randrange
+import waterkering.functions.sensors as sensors
 
 # Connected to websocket.connect
 def connect(message):
@@ -11,8 +11,11 @@ def connect(message):
 # Connected to websocket.receive
 def update(message):
     # get data | from sensors.py
+    waterstand = sensors.get_sensor_waterstand()
     # save data | from sensors.py
-    Group("waterstand").send({"text": "{}".format(500)})
+    sensors.save_sensor_waterstand(waterstand)
+    # send data to websocket
+    Group("waterstand").send({"text": "{}".format(waterstand)})
 
 # Connected to websocket.disconnect
 def disconnect(message):
