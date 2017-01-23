@@ -12,7 +12,7 @@ def connect(message):
 def update(message):
     # get data | from sensors.py
     # save data | from sensors.py
-    Group("waterstand").send({"text": "{}".format(message + 5)})
+    Group("waterstand").send({"text": "{}".format(500)})
 
 # Connected to websocket.disconnect
 def disconnect(message):
