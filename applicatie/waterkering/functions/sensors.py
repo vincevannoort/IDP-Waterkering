@@ -43,6 +43,9 @@ def get_sensor_waterstand():
             distance3 = measure_waterstand()
             return ((distance1 + distance2 + distance3) / 3)
 
+        # send average of 3 measures back
+        return measure_average_waterstand()
+
     # Raspberry Pi not connected
     else:
         return int(randrange(100, 900 + 1))
