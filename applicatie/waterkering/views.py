@@ -8,6 +8,6 @@ def waterkering(request):
     return render(request, 'waterkering/index.html')
 
 threads = []
-t = threading.Thread(target=controller.monitor)
-threads.append(t)
-t.start()
+monitorThread = threading.Thread(target=controller.monitor)
+threads.append(monitorThread)
+monitorThread.start()
