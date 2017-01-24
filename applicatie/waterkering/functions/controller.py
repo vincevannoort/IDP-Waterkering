@@ -11,21 +11,22 @@ def monitor():
 	while(True):
 		time.sleep(5)
 		waterstanden = list(Waterstand.objects.values_list('waterstand').order_by('-id')[:5])
+		median = statistics.median(waterstanden)[0]
 		average = sum(waterstand[0] for waterstand in waterstanden) / 5
-		median = statistics.median(waterstanden)
 
 		print(waterstanden)
 		print('mediaan: {}, average: {}'.format(median, average))
+		print('mediaan: {}, average: {}'.format(type(median), type(average)))
 
-		if status == 'opened' and median > settings.MAX_WATER_HEIGHT and average > setting.MAX_WATER_HEIGHT:
-			setting.status = 'inused'
+		if settings.status == 'opened' and int(median) > settings.MAX_WATER_HEIGHT and int(average) > settings.MAX_WATER_HEIGHT:
+			settings.status = 'inused'
 			print('closing doors')
-			setting.status = 'closed'
-		elif status == 'closed' and median < settings.MAX_WATER_HEIGHT and average < setting.MAX_WATER_HEIGHT:
+			settings.status = 'closed'
+		elif settings.status == 'closed' and int(median) < settings.MAX_WATER_HEIGHT and int(average) < settings.MAX_WATER_HEIGHT:
 			setting.status = 'inused'
 			print('opening doors')
-			setting.status = 'opened'
-		elif status == 'inuse':
+			settings.status = 'opened'
+		elif settings.status == 'inuse':
 			pass
 
 def updater():
