@@ -116,10 +116,6 @@
 
         socket.onopen = function() {
             console.log('start requesting:');
-            function getWaterkering(){
-                socket.send(app._data.message);
-            }
-            setInterval(getWaterkering, 500);
         }
 
         // Call onopen directly if socket is already open
