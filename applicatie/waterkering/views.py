@@ -9,5 +9,9 @@ def waterkering(request):
 
 threads = []
 monitorThread = threading.Thread(target=controller.monitor)
+updaterThread = threading.Thread(target=controller.updater)
 threads.append(monitorThread)
-monitorThread.start()
+threads.append(updaterThread)
+
+for thread in threads:
+    thread.start()
