@@ -36,11 +36,14 @@ def get_sensor_waterstand(previousWaterstand):
             distance = (elapsed * 34300) / 2
             return distance
         def measure_average_waterstand():
+            # measure 3 times
             distance1 = measure_waterstand() 
             time.sleep(0.1)
             distance2 = measure_waterstand() 
             time.sleep(0.1)
             distance3 = measure_waterstand()
+
+            # compute average of those 3 measures
             average = ((distance1 + distance2 + distance3) / 3)
             print('measured distance: {}'.format(average));
             return average
@@ -50,7 +53,7 @@ def get_sensor_waterstand(previousWaterstand):
 
     # Raspberry Pi not connected
     else:
-        return int(previousWaterstand) + randrange(-30, 30 + 1)
+        return int(previousWaterstand) + randrange(-5, 5 + 1)
 
 # save waterstand to database with variable waterstand
 def save_sensor_waterstand(value):
