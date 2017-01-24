@@ -36,8 +36,10 @@ def get_sensor_waterstand():
             distance = (elapsed * 34300) / 2
             return distance
         def measure_average_waterstand():
-            distance1 = measure_waterstand() time.sleep(0.1)
-            distance2 = measure_waterstand() time.sleep(0.1)
+            distance1 = measure_waterstand() 
+            time.sleep(0.1)
+            distance2 = measure_waterstand() 
+            time.sleep(0.1)
             distance3 = measure_waterstand()
             return ((distance1 + distance2 + distance3) / 3)
 
