@@ -1,5 +1,6 @@
 import waterkering.functions.sensors as sensors
 import waterkering.functions.motors as motors
+from waterkering.models import Waterstand
 import applicatie.settings as settings
 import time
 
@@ -10,7 +11,15 @@ import time
 
 def run():
 	while(True):
-		waterHeight = sensors.get_sensor_waterstand()
-		if(waterHeight > settings.MAX_WATER_HEIGHT):
-			motors.close_gate()
-		time.sleep(1);
+		time.sleep(5)
+		waterstanden = Waterstand.objects.all().order_by('-id')[:5]
+		sum = 0
+		for waterstand in waterstanden:
+			sum += waterstand.waterstand
+		average = sum / len(waterstanden)
+		if(average > settings.MAX_WATER_HEIGHT):
+			print("Gate closing")
+			#motors.close_gate()
+
+			#for waterstand in waterstanden:
+		#	print(waterstand.waterstand)
