@@ -8,7 +8,6 @@ def monitor():
 	while(True):
 		time.sleep(5)
 
-		sum = 0
 		waterstanden = Waterstand.objects.all().order_by('-id')[:5]
 		average = sum(waterstand.waterstand for waterstand in waterstanden)
 		if(average > settings.MAX_WATER_HEIGHT):
