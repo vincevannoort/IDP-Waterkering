@@ -23,7 +23,7 @@ def monitor():
 			print('closing doors')
 			settings.status = 'closed'
 		elif settings.status == 'closed' and int(median) < settings.MAX_WATER_HEIGHT and int(average) < settings.MAX_WATER_HEIGHT:
-			setting.status = 'inused'
+			settings.status = 'inused'
 			print('opening doors')
 			settings.status = 'opened'
 		elif settings.status == 'inuse':
