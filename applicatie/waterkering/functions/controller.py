@@ -10,9 +10,6 @@ def monitor():
 
 		sum = 0
 		waterstanden = Waterstand.objects.all().order_by('-id')[:5]
-		for waterstand in waterstanden:
-			sum += waterstand.waterstand
-		average = sum / len(waterstanden)
-
+		average = sum(waterstand.waterstand for waterstand in waterstanden)
 		if(average > settings.MAX_WATER_HEIGHT):
 			print("Average value of", average, "is above maximum; gate closing.")
