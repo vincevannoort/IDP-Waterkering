@@ -4,15 +4,29 @@ from channels import Group
 from waterkering.models import Waterstand
 import applicatie.settings as settings
 import time
+import random
+import statistics
 
 def monitor():
 	while(True):
 		time.sleep(5)
+		waterstanden = list(Waterstand.objects.values_list('waterstand').order_by('-id')[:5])
+		average = sum(waterstand[0] for waterstand in waterstanden) / 5
+		median = statistics.median(waterstanden)
 
-		waterstanden = Waterstand.objects.all().order_by('-id')[:5]
-		average = sum(waterstand.waterstand for waterstand in waterstanden) / 5
-		if(average > settings.MAX_WATER_HEIGHT):
-			print("Average value of", average, "is above maximum; gate closing.")
+		print(waterstanden)
+		print('mediaan: {}, average: {}'.format(median, average))
+
+		if status == 'opened' and median > settings.MAX_WATER_HEIGHT and average > setting.MAX_WATER_HEIGHT:
+			setting.status = 'inused'
+			print('closing doors')
+			setting.status = 'closed'
+		elif status == 'closed' and median < settings.MAX_WATER_HEIGHT and average < setting.MAX_WATER_HEIGHT:
+			setting.status = 'inused'
+			print('opening doors')
+			setting.status = 'opened'
+		elif status == 'inuse':
+			pass
 
 def updater():
 	while(True):
