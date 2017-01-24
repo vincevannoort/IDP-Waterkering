@@ -11,7 +11,7 @@ def connect(message):
 # Connected to websocket.receive
 def update(message):
     # get data | from sensors.py
-    waterstand = sensors.get_sensor_waterstand()
+    waterstand = sensors.get_sensor_waterstand(message)
     # save data | from sensors.py
     sensors.save_sensor_waterstand(waterstand)
     # send data to websocket

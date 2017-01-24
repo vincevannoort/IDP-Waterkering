@@ -14,7 +14,7 @@ if settings.RASPBERRY == True:
     GPIO.output(GPIO_TRIGGER, False)
 
 # get sensor data, for now random data
-def get_sensor_waterstand():
+def get_sensor_waterstand(message):
     
     # Raspberry Pi connected
     if settings.RASPBERRY == True:
@@ -48,7 +48,7 @@ def get_sensor_waterstand():
 
     # Raspberry Pi not connected
     else:
-        return int(randrange(100, 900 + 1))
+        return int(message.content['text']) + randrange(-30, 30 + 1)
 
 # save waterstand to database with variable waterstand
 def save_sensor_waterstand(value):
