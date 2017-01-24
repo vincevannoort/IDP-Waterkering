@@ -41,7 +41,9 @@ def get_sensor_waterstand(message):
             distance2 = measure_waterstand() 
             time.sleep(0.1)
             distance3 = measure_waterstand()
-            return ((distance1 + distance2 + distance3) / 3)
+            average = ((distance1 + distance2 + distance3) / 3)
+            print('measured distance: {}'.format(average));
+            return average
 
         # send average of 3 measures back
         return measure_average_waterstand()
