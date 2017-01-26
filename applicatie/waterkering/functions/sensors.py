@@ -5,7 +5,7 @@ from waterkering.models import Waterstand
 
 # GPIO variables
 if settings.RASPBERRY == True: 
-    console.log('initialize sensor');
+    print('initialize sensor')
     import RPi.GPIO as GPIO 
     GPIO.setmode(GPIO.BCM)
     GPIO_TRIGGER = 23;
