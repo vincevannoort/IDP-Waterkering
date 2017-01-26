@@ -1,4 +1,4 @@
-import waterkering.functions.sensors as sensors
+from waterkering.functions.sensors import Sensor
 import waterkering.functions.motors as motors
 from channels import Group
 from waterkering.models import Waterstand
@@ -33,8 +33,8 @@ def updater():
 	while(True):
 		time.sleep(1)
 		# get data | from sensors.py
-		waterstand = sensors.get_sensor_waterstand(Waterstand.objects.latest('id').waterstand)
+		waterstand = Sensor.get_sensor_waterstand(Waterstand.objects.latest('id').waterstand)
 		# save data | from sensors.py
-		sensors.save_sensor_waterstand(waterstand)
+		Sensor.save_sensor_waterstand(waterstand)
 		# send data to websocket
 		Group("waterstand").send({"text": "{}".format(waterstand)})
