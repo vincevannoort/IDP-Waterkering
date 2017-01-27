@@ -9,7 +9,7 @@ import statistics
 
 def monitor():
 	while(True):
-		time.sleep(5)
+		time.sleep(1)
 		waterstanden = list(Waterstand.objects.values_list('waterstand').order_by('-id')[:5])
 		median = statistics.median(waterstanden)[0]
 		average = sum(waterstand[0] for waterstand in waterstanden) / 5
