@@ -9,7 +9,7 @@ if settings.RASPBERRY == True:
     import RPi.GPIO as GPIO
 
     # sensor 1
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     GPIO_TRIGGER = settings.SENSOR_PINS[0];
     GPIO_ECHO = settings.SENSOR_PINS[1];
     GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
