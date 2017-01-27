@@ -20,10 +20,10 @@ if settings.RASPBERRY == True:
     P4 = settings.MOTOR_PINS[0][3]
 
     # motor 2
-    P5 = settings.MOTOR_PINS[0][0]
-    P6 = settings.MOTOR_PINS[0][1]
-    P7 = settings.MOTOR_PINS[0][2]
-    P8 = settings.MOTOR_PINS[0][3]
+    P5 = settings.MOTOR_PINS[1][0]
+    P6 = settings.MOTOR_PINS[1][1]
+    P7 = settings.MOTOR_PINS[1][2]
+    P8 = settings.MOTOR_PINS[1][3]
 
     # variables for calculations
     deg_per_step = 5.625 / 64 
