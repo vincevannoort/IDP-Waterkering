@@ -83,7 +83,7 @@ class Motor:
             steps = target_step_angle
             steps = int(steps % steps_per_rev)
             GPIO.output(P1, 0)
-        	GPIO.output(P5, 0)
+            GPIO.output(P5, 0)
             GPIO.output(P2, 0)
             GPIO.output(P6, 0)
             GPIO.output(P3, 0)
