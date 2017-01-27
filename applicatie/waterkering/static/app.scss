@@ -1,0 +1,65 @@
+// colors
+$blue: #050621;
+$lightblue: #101E36;
+
+body, html {
+    padding: 0;
+    margin: 0;
+    background: $blue;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+        
+.sidebar {
+    border-right: 1px solid $lightblue;
+    width: 93px;
+    .title {
+        display: inline-block;
+        transform: rotate(90deg);
+        font-family: 'Lato-Bold';
+        font-size: 22px;
+        color: #FFFFFF;
+        letter-spacing: 1.37px;
+        width: 120px;
+        height: 92px;
+    }
+    ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+    }
+    button {
+        height: 92px;
+        width: 92px;
+        display: inline-block;
+        background: $blue;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid $lightblue;
+        transition: background 0.2s ease-in-out;
+        &:hover {
+            background: $lightblue;
+        }
+
+        &.waterkering {
+            height: 276px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+}
+.main {
+    width: calc(100% - 93px);
+}

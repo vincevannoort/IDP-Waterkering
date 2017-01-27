@@ -57,7 +57,10 @@ class Sensor:
 
         # Raspberry Pi not connected
         else:
-            return int(previousWaterstand) + randrange(-30, 30 + 1)
+            distance = int(previousWaterstand) + randrange(-3, 3 + 1)
+            if distance > 100: distance = 100
+            elif distance < 0: distance = 0
+            return distance
 
     def save_sensor_waterstand(value):
         Waterstand(waterstand = value).save()
