@@ -9,16 +9,16 @@ if settings.RASPBERRY == True:
     GPIO.setmode(GPIO.BOARD)
 
     # motor 1
-    P1 = settings.MOTOR_PINS[0]
-    P2 = settings.MOTOR_PINS[1]
-    P3 = settings.MOTOR_PINS[2]
-    P4 = settings.MOTOR_PINS[3]
+    P1 = settings.MOTOR_PINS[0][0]
+    P2 = settings.MOTOR_PINS[0][1]
+    P3 = settings.MOTOR_PINS[0][2]
+    P4 = settings.MOTOR_PINS[0][3]
 
     # motor 2
-    P5 = settings.MOTOR_PINS[4]
-    P6 = settings.MOTOR_PINS[5]
-    P7 = settings.MOTOR_PINS[6]
-    P8 = settings.MOTOR_PINS[7]
+    P5 = settings.MOTOR_PINS[0][0]
+    P6 = settings.MOTOR_PINS[0][1]
+    P7 = settings.MOTOR_PINS[0][2]
+    P8 = settings.MOTOR_PINS[0][3]
 
     # variables for calculations
     deg_per_step = 5.625 / 64 
