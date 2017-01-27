@@ -4,9 +4,14 @@ import time
 
 # GPIO variables
 if settings.RASPBERRY == True: 
-    print('initialize sensor')
+    print('initialize motor')
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
+
+    for pins in settings.MOTOR_PINS:
+        for pin in pins:
+            GPIO.setup(pin, GPIO.OUT)
+            GPIO.output(pin, 0)
 
     # motor 1
     P1 = settings.MOTOR_PINS[0][0]
