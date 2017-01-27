@@ -1,5 +1,5 @@
 from waterkering.functions.sensors import Sensor
-import waterkering.functions.motors as motors
+from waterkering.functions.motors import Motor
 from channels import Group
 from waterkering.models import Waterstand
 import applicatie.settings as settings
@@ -19,22 +19,19 @@ def monitor():
 		print('mediaan: {}, average: {}'.format(type(median), type(average)))
 
 		if settings.status == 'opened' and int(median) > settings.MAX_WATER_HEIGHT and int(average) > settings.MAX_WATER_HEIGHT:
-			settings.status = 'inused'
-			print('closing doors')
+			settings.status = 'closing'
+			Motor.close_gate()
 			settings.status = 'closed'
 		elif settings.status == 'closed' and int(median) < settings.MAX_WATER_HEIGHT and int(average) < settings.MAX_WATER_HEIGHT:
-			settings.status = 'inused'
-			print('opening doors')
+			settings.status = 'opening'
+			Motor.open_gate()
 			settings.status = 'opened'
-		elif settings.status == 'inuse':
+		elif settings.status == 'closing' or settings.status == 'opening':
 			pass
 
 def updater():
 	while(True):
-		time.sleep(1)
-		# get data | from sensors.py
+		time.sleep(0.8)
 		waterstand = Sensor.get_sensor_waterstand(Waterstand.objects.latest('id').waterstand)
-		# save data | from sensors.py
 		Sensor.save_sensor_waterstand(waterstand)
-		# send data to websocket
 		Group("waterstand").send({"text": "{}".format(waterstand)})

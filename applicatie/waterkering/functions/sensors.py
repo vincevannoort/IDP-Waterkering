@@ -6,15 +6,17 @@ from waterkering.models import Waterstand
 # GPIO variables
 if settings.RASPBERRY == True: 
     print('initialize sensor')
-    import RPi.GPIO as GPIO 
+    import RPi.GPIO as GPIO
+
+    # sensor 1
     GPIO.setmode(GPIO.BCM)
-    GPIO_TRIGGER = 23;
-    GPIO_ECHO = 24;
-    GPIO.setup(GPIO_TRIGGER,GPIO.OUT)
-    GPIO.setup(GPIO_ECHO,GPIO.IN)
+    GPIO_TRIGGER = settings.SENSOR_PINS[0];
+    GPIO_ECHO = settings.SENSOR_PINS[1];
+    GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+    GPIO.setup(GPIO_ECHO, GPIO.IN)
     GPIO.output(GPIO_TRIGGER, False)
 
-class Sensor():
+class Sensor:
 
     def get_sensor_waterstand(previousWaterstand):
         
@@ -58,4 +60,4 @@ class Sensor():
             return int(previousWaterstand) + randrange(-30, 30 + 1)
 
     def save_sensor_waterstand(value):
-        Waterstand(waterstand=value).save()
+        Waterstand(waterstand = value).save()
