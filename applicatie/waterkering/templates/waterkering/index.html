@@ -18,20 +18,20 @@
             </ul>
         </div>
         <div id="main" class="main">
-            <transition name="fade">
-                <div v-if="view == 'waterstand'" key="waterstand">
+            <transition-group name="fade">
+                <div v-show="view == 'waterstand'" key="waterstand">
                     <canvas id="waterkering" width="1440" height="560"></canvas>
                 </div>
-                <div v-else-if="view == 'medlingen'" key="meldingen">
+                <div v-show="view == 'medlingen'" key="meldingen">
                     meldingen
                 </div>
-                <div v-else-if="view == 'berichten'" key="berichten">
+                <div v-show="view == 'berichten'" key="berichten">
                     berichten
                 </div>
-                <div v-else-if="view == 'instellingen'" key="instellingen">
+                <div v-show="view == 'instellingen'" key="instellingen">
                     instellingen
                 </div>
-            </transition>
+            </transition-group>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
