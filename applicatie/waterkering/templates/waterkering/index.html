@@ -9,7 +9,6 @@
 <body>
     <div id="app">
         <div id="sidebar" class="sidebar">
-            sidebar
             <ul>
                 <li><button class="waterkering" @click="changeView('waterstand')"><img src="{% static 'build/images/waterkering.svg' %}"></button></li>
                 <li><button class="waterstand" @click="changeView('waterstand')"><img src="{% static 'build/images/waterstand.svg' %}"></button></li>
@@ -21,7 +20,6 @@
         <div id="main" class="main">
             <transition name="fade">
                 <div v-if="view == 'waterstand'" key="waterstand">
-                    waterstand
                     <canvas id="waterkering" width="1440" height="560"></canvas>
                 </div>
                 <div v-else-if="view == 'medlingen'" key="meldingen">

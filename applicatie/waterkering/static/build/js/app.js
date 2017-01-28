@@ -46,7 +46,7 @@ function initChart() {
             yLabels: [0, 20, 40, 60, 80, 100],
             datasets: [
                 {
-                    label: 'waterpijl', data: dataList, backgroundColor: gradient, lineTension: 0.5,
+                    label: 'waterpijl', data: dataList, backgroundColor: gradient, lineTension: 0.5, borderColor: '#1fbde6', borderWidth: 2,
                 }
             ]
         },
@@ -68,7 +68,9 @@ function initChart() {
                         color: "rgba(170, 170, 170, 0.15)",
                     }
                 }]
-            }
+            },
+            elements: { point: { radius: 1 } },
+            legend: { display: false }
         }
     });
 
