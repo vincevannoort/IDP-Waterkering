@@ -39,21 +39,8 @@ class Sensor:
                 elapsed = stop-start
                 distance = (elapsed * 34300) / 2
                 return distance
-            def measure_average_waterstand():
-                # measure 3 times
-                distance1 = measure_waterstand() 
-                time.sleep(0.1)
-                distance2 = measure_waterstand() 
-                time.sleep(0.1)
-                distance3 = measure_waterstand()
-
-                # compute average of those 3 measures
-                average = ((distance1 + distance2 + distance3) / 3)
-                print('measured distance: {}'.format(average));
-                return average
-
-            # send average of 3 measures back
-            return measure_average_waterstand()
+                
+            return measure_waterstand()
 
         # Raspberry Pi not connected
         else:
