@@ -12,6 +12,20 @@ body, html {
   height: 100vh;
   width: 100vw; }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato';
+  font-weight: 200;
+  font-size: 43px;
+  color: #FFFFFF;
+  letter-spacing: 2.68px; }
+
+.row {
+  padding: 0 80px; }
+  .row:first-of-type {
+    padding-top: 54px; }
+  .row h1 {
+    padding-bottom: 20px; }
+
 .sidebar {
   border-right: 1px solid #101E36;
   width: 93px; }
@@ -49,11 +63,36 @@ body, html {
 .main {
   width: calc(100% - 93px); }
 
+.waterkering-canvas {
+  position: relative; }
+  .waterkering-canvas div {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    color: white;
+    transform: translateY(-50%);
+    font-family: 'lato';
+    font-weight: 200;
+    font-size: 16px;
+    color: white;
+    letter-spacing: 1.12px; }
+    .waterkering-canvas div:nth-of-type(2) {
+      top: calc(17.5%); }
+    .waterkering-canvas div:nth-of-type(3) {
+      top: calc(17.5% * 2); }
+    .waterkering-canvas div:nth-of-type(4) {
+      top: calc(17.5% * 3); }
+    .waterkering-canvas div:nth-of-type(5) {
+      top: calc(17.5% * 4); }
+
 canvas {
-  padding: 30px 20px; }
+  position: relative; }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s; }
+  transition: opacity 0.6s; }
 
 .fade-enter, .fade-leave-to {
   opacity: 0; }
+
+.status span {
+  transition: color 1s ease-in-out; }

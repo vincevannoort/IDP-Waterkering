@@ -19,6 +19,25 @@ body, html {
     width: 100vw;
 }
 
+// typography
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato';
+    font-weight: 200;
+    font-size: 43px;
+    color: #FFFFFF;
+    letter-spacing: 2.68px;
+}
+
+
+// row
+.row {
+    padding: 0 80px;
+    &:first-of-type {
+        padding-top: 54px;
+    }
+    h1 { padding-bottom: 20px; }
+}
+
 
 // sidebar        
 .sidebar {
@@ -69,14 +88,43 @@ body, html {
 }
 
 // chartjs
+.waterkering-canvas {
+    position: relative;
+    div {
+        position: absolute;
+        top: 0;
+        left: 80px;
+        color: white;
+        transform: translateY(-50%);
+        font-family: 'lato';
+        font-weight: 200;
+        font-size: 16px;
+        color: white;
+        letter-spacing: 1.12px;
+
+        &:nth-of-type(2) { top: calc(17.5%); }
+        &:nth-of-type(3) { top: calc(17.5% * 2); }
+        &:nth-of-type(4) { top: calc(17.5% * 3); }
+        &:nth-of-type(5) { top: calc(17.5% * 4); }
+    }
+}
+
 canvas {
-    padding: 30px 20px;
+    position: relative;
+    // padding: 30px 20px;
 }
 
 // transition
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
+    transition: opacity 0.6s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
     opacity: 0
+}
+
+// status 
+.status {
+    span {
+        transition: color 1s ease-in-out;
+    }
 }

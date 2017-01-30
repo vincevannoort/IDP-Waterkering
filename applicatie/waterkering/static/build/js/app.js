@@ -8,7 +8,39 @@ function initVue() {
         delimiters: ['[[',']]'],
         data: {
             view: 'waterstand',
-            waterstand: 500
+            waterstand: 0,
+            animatedWaterstand: 0
+        },
+        computed: {
+            status: function() {
+                if ( this.waterstand < 20) {
+                    return ['laag', '#67e267']
+                } else if ( this.waterstand < 40 ) {
+                    return ['normaal', '#67e267']
+                } else if ( this.waterstand < 60 ) {
+                    return ['hoog', '#f0ff40']
+                } else if ( this.waterstand < 80 ) {
+                    return ['te hoog', '#ffad40']
+                } else if ( this.waterstand < 100 ) {
+                    return ['kritiek', '#ff4040']
+                }
+            }
+        },
+        watch: {
+            waterstand: function(newValue, oldValue) {
+              var vm = this
+              var animationFrame
+              function animate (time) {
+                TWEEN.update(time)
+                animationFrame = requestAnimationFrame(animate)
+              }
+              new TWEEN.Tween({ tweeningNumber: oldValue }).easing(TWEEN.Easing.Quadratic.Out).to({ tweeningNumber: newValue }, 500).onUpdate(function () {
+                  vm.animatedWaterstand = this.tweeningNumber.toFixed(0)
+                }).onComplete(function () {
+                  cancelAnimationFrame(animationFrame)
+                }).start() 
+               animationFrame = requestAnimationFrame(animate)
+            }
         },
         methods: {
             changeView: function(view) {
@@ -53,8 +85,10 @@ function initChart() {
         options: {
             scales: {
                 xAxes: [{
+                    ticks: {},
                     gridLines: {
-                        color: "rgba(170, 170, 170, 0)",
+                        display: false,
+                        drawBorder: true,
                     }
                 }],
                 yAxes: [{
@@ -63,9 +97,12 @@ function initChart() {
                         max: 100,
                         stepSize: 20,
                         beginAtZero: true,
+                        display: false,
+                        padding: 0,
                     },
                     gridLines: {
                         color: "rgba(170, 170, 170, 0.15)",
+                        drawBorder: false,
                     }
                 }]
             },
