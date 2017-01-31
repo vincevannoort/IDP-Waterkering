@@ -1,6 +1,7 @@
 from waterkering.functions.sensors import Sensor
 from waterkering.functions.motors import Motor
 from waterkering.models import Waterstand
+from waterkering.models import Melding
 from channels import Group
 import applicatie.settings as settings
 import statistics
@@ -11,7 +12,7 @@ import time
 def monitor():
 	while(True):
 		# Sleep 1 second before reading out the next set of water levels, because that is often enough and a good balance between response time and CPU usage
-		thread.sleep(1)
+		time.sleep(1)
 
 		# Get the latest 5 updates from the database, filter out the water levels and put them in a list
 		waterstanden = list(Waterstand.objects.values_list('waterstand').order_by('-id')[:5])
@@ -24,10 +25,12 @@ def monitor():
 		if settings.status == 'opened' and int(median) > settings.MAX_WATER_HEIGHT and int(average) > settings.MAX_WATER_HEIGHT:
 			settings.status = 'closing'
 			Motor.close_gate()
+			Melding(melding = 'closed').save()
 			settings.status = 'closed'
 		elif settings.status == 'closed' and int(median) < settings.MAX_WATER_HEIGHT and int(average) < settings.MAX_WATER_HEIGHT:
 			settings.status = 'opening'
 			Motor.open_gate()
+			Melding(melding = 'opened').save()
 			settings.status = 'opened'
 		elif settings.status == 'closing' or settings.status == 'opening':
 			pass

@@ -24,7 +24,7 @@ SECRET_KEY = '%(p^4!q$h48v!f6*7#24&u)^mw&#1p9@i#f9=da@3+9t1)#a4h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-MAX_WATER_HEIGHT = 70
+MAX_WATER_HEIGHT = 30
 RASPBERRY = False
 SENSOR_PINS = [16, 18]
 MOTOR_PINS = [[31, 33, 35, 37], [32, 36, 38, 40]]
