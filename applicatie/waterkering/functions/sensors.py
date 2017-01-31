@@ -17,7 +17,6 @@ if settings.RASPBERRY == True:
     GPIO.output(GPIO_TRIGGER, False)
 
 class Sensor:
-
     def get_sensor_waterstand(previousWaterstand):
         
         # Raspberry Pi connected
@@ -42,7 +41,7 @@ class Sensor:
                 
             return measure_waterstand()
 
-        # Raspberry Pi not connected
+        # Raspberry Pi not connected, returning random value for testing purposes
         else:
             distance = int(previousWaterstand) + randrange(-3, 3 + 1)
             if distance > 100: distance = 100
