@@ -6,3 +6,7 @@ from django.db import models
 class Waterstand(models.Model):
     waterstand = models.FloatField(default=10)
     date = models.DateTimeField(auto_now_add=True, blank=True)
+
+class Melding(models.Model):
+    melding = models.TextField()
+    date = models.DateTimeField(auto_now_add=True, blank=True)

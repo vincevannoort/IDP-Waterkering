@@ -21,7 +21,7 @@
             <transition-group name="fade">
                 <div v-show="view == 'waterstand'" key="waterstand">
                     <div class="row">
-                        <h1>Waterniveau <span style="opacity: 0.15;">|</span> <span>[[ animatedWaterstand ]] cm</span> <span style="opacity: 0.15;">|</span> <span class="status"><span :style="{ color: status[1] }">&bull;</span> [[ status[0] ]]</span></h1>
+                        <h1>Waterniveau <span style="opacity: 0.15;">|</span> [[ animatedWaterstand ]] cm <span style="opacity: 0.15;">|</span> <span class="status"><span :style="{ color: status[1] }">&bull;</span> [[ status[0] ]]</span></h1>
                     </div>
                     <div class="waterkering-canvas">
                     <canvas id="waterkering" width="1440" height="561"></canvas>

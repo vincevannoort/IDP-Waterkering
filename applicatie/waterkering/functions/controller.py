@@ -2,6 +2,7 @@ from waterkering.functions.sensors import Sensor
 from waterkering.functions.motors import Motor
 from channels import Group
 from waterkering.models import Waterstand
+from waterkering.models import Melding
 import applicatie.settings as settings
 import time
 import random
@@ -21,10 +22,12 @@ def monitor():
 		if settings.status == 'opened' and int(median) > settings.MAX_WATER_HEIGHT and int(average) > settings.MAX_WATER_HEIGHT:
 			settings.status = 'closing'
 			Motor.close_gate()
+			Melding(melding = 'closed').save()
 			settings.status = 'closed'
 		elif settings.status == 'closed' and int(median) < settings.MAX_WATER_HEIGHT and int(average) < settings.MAX_WATER_HEIGHT:
 			settings.status = 'opening'
 			Motor.open_gate()
+			Melding(melding = 'opened').save()
 			settings.status = 'opened'
 		elif settings.status == 'closing' or settings.status == 'opening':
 			pass
