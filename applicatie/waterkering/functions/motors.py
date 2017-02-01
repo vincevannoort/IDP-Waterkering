@@ -5,7 +5,6 @@ import time
 
 # GPIO variables
 if settings.RASPBERRY == True: 
-    print('initialize motor')
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
 
@@ -47,6 +46,7 @@ class Motor:
             # Set status to closing
             print('Closing gate.')
             settings.status = 'closing'
+            Melding(melding = 'Closing').save()
 
             # Raspberry Pi connected
             if settings.RASPBERRY == True:
@@ -90,11 +90,12 @@ class Motor:
 
             # Change status to closed regardless whether the RPi is connected and logs the action
             settings.status = 'closed'
-            Melding(melding = 'closed').save()
+            Melding(melding = 'Closed').save()
 
         # Fires when the close_gate function in called but the current status is not opened
         else:
             print('The gates cannot be closed when the gates are not open.')
+            Melding(melding = 'Tried closing but failed because doors where not open').save()
 
 
     def open_gate(angle=90):
@@ -105,6 +106,7 @@ class Motor:
             # Set status to opening
             print('Opening gate.')
             settings.status = 'opening'
+            Melding(melding = 'Opening').save()
 
             # Raspberry Pi connected
             if settings.RASPBERRY == True:
@@ -148,8 +150,9 @@ class Motor:
 
             # Change status to opened regardless whether the RPi is connected and logs the action
             settings.status = 'opened'
-            Melding(melding = 'opened').save()
+            Melding(melding = 'Opened').save()
 
         # Fires when the open_gate function in called but the current status is not closed
         else:
             print('The gates cannot be opened when the gates are not closed.')
+            Melding(melding = 'Tried opening but failed because doors where not closed').save()
