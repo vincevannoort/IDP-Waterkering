@@ -45,6 +45,9 @@ function initVue() {
         methods: {
             changeView: function(view) {
                 this.view = view
+            },
+            ajaxTesting: function(testFunction) {
+                axios.post('/testing/?function=' + testFunction).then(function (response) { console.log(response); }).catch(function (error) { console.log(error); });
             }
         }
     });
@@ -130,7 +133,6 @@ function initSocket() {
     socket = new WebSocket("ws://" + window.location.host + "/waterstand/");
     socket.onmessage = function(e) {
         updateChart(e.data);
-        console.log(e.data);
         app._data.waterstand = e.data;
     }
 

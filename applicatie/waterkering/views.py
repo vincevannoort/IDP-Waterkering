@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 import threading
 import waterkering.functions.controller as controller
@@ -9,6 +10,7 @@ import applicatie.settings as settings
 def waterkering(request):
     return render(request, 'waterkering/index.html')
 
+@csrf_exempt 
 def testing(request):
     ''' Function for testing purposes, get function from url and run from the testing class '''
     Testing.test(request.GET.get('function', ''))

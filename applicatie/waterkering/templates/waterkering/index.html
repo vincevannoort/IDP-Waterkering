@@ -13,7 +13,7 @@
                 <li><button class="waterkering" @click="changeView('waterstand')"><img src="{% static 'build/images/waterkering.svg' %}"></button></li>
                 <li><button class="waterstand" @click="changeView('waterstand')"><img src="{% static 'build/images/waterstand.svg' %}"></button></li>
                 <li><button class="meldingen" @click="changeView('meldingen')"><img src="{% static 'build/images/meldingen.svg' %}"></button></li>
-                <li><button class="berichten" @click="changeView('berichten')"><img src="{% static 'build/images/berichten.svg' %}"></button></li>
+                <li><button class="testen" @click="changeView('testen')"><img src="{% static 'build/images/testing.svg' %}"></button></li>
                 <li><button class="instellingen" @click="changeView('instellingen')"><img src="{% static 'build/images/instellingen.svg' %}"></button></li>
             </ul>
         </div>
@@ -37,9 +37,11 @@
                         <h1>Meldingen</h1>
                     </div>
                 </div>
-                <div v-show="view == 'berichten'" key="berichten">
+                <div v-show="view == 'testen'" key="testen">
                     <div class="row">
-                        <h1>Berichten</h1>
+                        <h1>testen</h1>
+                        <button v-on:click="ajaxTesting('open_gate')">open gates</button>
+                        <button v-on:click="ajaxTesting('close_gate')">close gates</button>
                     </div>
                 </div>
                 <div v-show="view == 'instellingen'" key="instellingen">
@@ -52,6 +54,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
     <script src="https://unpkg.com/tween.js@16.3.4"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="{% static 'build/js/app.js' %}"></script>
