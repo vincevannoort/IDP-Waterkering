@@ -1,5 +1,6 @@
 # credits to https://github.com/recantha/stepper-pi
 import applicatie.settings as settings
+from waterkering.models import Melding
 import time
 
 # GPIO variables
@@ -39,85 +40,116 @@ if settings.RASPBERRY == True:
 class Motor:
 
     def close_gate(angle=90):
-        print("Closing gate.")
-        # Raspberry Pi connected
-        if settings.RASPBERRY == True:
-            target_step_angle = (int(angle / deg_per_step) / 8)
-            steps = target_step_angle
-            steps = int(steps % steps_per_rev)
-            GPIO.output(P1, 0)
-            GPIO.output(P5, 0)
-            GPIO.output(P2, 0)
-            GPIO.output(P6, 0)
-            GPIO.output(P3, 0)
-            GPIO.output(P7, 0)
-            GPIO.output(P4, 0)
-            GPIO.output(P8, 0)
 
-            for i in range(steps):
-                GPIO.output(P3, 0)
-                GPIO.output(P7, 0)
-                time.sleep(_T)
-                GPIO.output(P1, 1)
-                GPIO.output(P5, 1)
-                time.sleep(_T)
-                GPIO.output(P4, 0)
-                GPIO.output(P8, 0)
-                time.sleep(_T)
-                GPIO.output(P2, 1)
-                GPIO.output(P6, 1)
-                time.sleep(_T)
+        # Only allow to close doors when current status is opened
+        if settings.status == 'opened':
+
+            # Set status to closing
+            print('Closing gate.')
+            settings.status = 'closing'
+
+            # Raspberry Pi connected
+            if settings.RASPBERRY == True:
+                target_step_angle = (int(angle / deg_per_step) / 8)
+                steps = target_step_angle
+                steps = int(steps % steps_per_rev)
                 GPIO.output(P1, 0)
                 GPIO.output(P5, 0)
-                time.sleep(_T)
-                GPIO.output(P3, 1)
-                GPIO.output(P7, 1)
-                time.sleep(_T)
                 GPIO.output(P2, 0)
                 GPIO.output(P6, 0)
-                time.sleep(_T)
-                GPIO.output(P4, 1)
-                GPIO.output(P8, 1)
-                time.sleep(_T)
+                GPIO.output(P3, 0)
+                GPIO.output(P7, 0)
+                GPIO.output(P4, 0)
+                GPIO.output(P8, 0)
+
+                for i in range(steps):
+                    GPIO.output(P3, 0)
+                    GPIO.output(P7, 0)
+                    time.sleep(_T)
+                    GPIO.output(P1, 1)
+                    GPIO.output(P5, 1)
+                    time.sleep(_T)
+                    GPIO.output(P4, 0)
+                    GPIO.output(P8, 0)
+                    time.sleep(_T)
+                    GPIO.output(P2, 1)
+                    GPIO.output(P6, 1)
+                    time.sleep(_T)
+                    GPIO.output(P1, 0)
+                    GPIO.output(P5, 0)
+                    time.sleep(_T)
+                    GPIO.output(P3, 1)
+                    GPIO.output(P7, 1)
+                    time.sleep(_T)
+                    GPIO.output(P2, 0)
+                    GPIO.output(P6, 0)
+                    time.sleep(_T)
+                    GPIO.output(P4, 1)
+                    GPIO.output(P8, 1)
+                    time.sleep(_T)
+
+            # Change status to closed regardless whether the RPi is connected and logs the action
+            settings.status = 'closed'
+            Melding(melding = 'closed').save()
+
+        # Fires when the close_gate function in called but the current status is not opened
+        else:
+            print('The gates cannot be closed when the gates are not open.')
+
 
     def open_gate(angle=90):
-        print("Opening gate.")
-        # Raspberry Pi connected
-        if settings.RASPBERRY == True:
-            target_step_angle = (int(angle / deg_per_step) / 8)
-            steps = target_step_angle
-            steps = int(steps % steps_per_rev)
-            GPIO.output(P1, 0)
-            GPIO.output(P5, 0)
-            GPIO.output(P2, 0)
-            GPIO.output(P6, 0)
-            GPIO.output(P3, 0)
-            GPIO.output(P7, 0)
-            GPIO.output(P4, 0)
-            GPIO.output(P8, 0)
 
-            for i in range(steps):
-                GPIO.output(P4, 1)
-                GPIO.output(P8, 1)
-                time.sleep(_T)
-                GPIO.output(P2, 0)
-                GPIO.output(P6, 0)
-                time.sleep(_T)
-                GPIO.output(P3, 1)
-                GPIO.output(P7, 1)
-                time.sleep(_T)
+        # Only allow to open doors when current status is closed
+        if settings.status == 'closed':
+
+            # Set status to opening
+            print('Opening gate.')
+            settings.status = 'opening'
+
+            # Raspberry Pi connected
+            if settings.RASPBERRY == True:
+                target_step_angle = (int(angle / deg_per_step) / 8)
+                steps = target_step_angle
+                steps = int(steps % steps_per_rev)
                 GPIO.output(P1, 0)
                 GPIO.output(P5, 0)
-                time.sleep(_T)
-                GPIO.output(P2, 1)
-                GPIO.output(P6, 1)
-                time.sleep(_T)
-                GPIO.output(P4, 0)
-                GPIO.output(P8, 0)
-                time.sleep(_T)
-                GPIO.output(P1, 1)
-                GPIO.output(P5, 1)
-                time.sleep(_T)
+                GPIO.output(P2, 0)
+                GPIO.output(P6, 0)
                 GPIO.output(P3, 0)
                 GPIO.output(P7, 0)
-                time.sleep(_T)
+                GPIO.output(P4, 0)
+                GPIO.output(P8, 0)
+
+                for i in range(steps):
+                    GPIO.output(P4, 1)
+                    GPIO.output(P8, 1)
+                    time.sleep(_T)
+                    GPIO.output(P2, 0)
+                    GPIO.output(P6, 0)
+                    time.sleep(_T)
+                    GPIO.output(P3, 1)
+                    GPIO.output(P7, 1)
+                    time.sleep(_T)
+                    GPIO.output(P1, 0)
+                    GPIO.output(P5, 0)
+                    time.sleep(_T)
+                    GPIO.output(P2, 1)
+                    GPIO.output(P6, 1)
+                    time.sleep(_T)
+                    GPIO.output(P4, 0)
+                    GPIO.output(P8, 0)
+                    time.sleep(_T)
+                    GPIO.output(P1, 1)
+                    GPIO.output(P5, 1)
+                    time.sleep(_T)
+                    GPIO.output(P3, 0)
+                    GPIO.output(P7, 0)
+                    time.sleep(_T)
+
+            # Change status to opened regardless whether the RPi is connected and logs the action
+            settings.status = 'opened'
+            Melding(melding = 'opened').save()
+
+        # Fires when the open_gate function in called but the current status is not closed
+        else:
+            print('The gates cannot be opened when the gates are not closed.')
