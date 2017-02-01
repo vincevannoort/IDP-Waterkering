@@ -53,12 +53,12 @@ def copier():
 		time.sleep(20)
 
 		# Raspberry Pi connected
-        if settings.RASPBERRY == True and settings.RASPBERRY_MAIN == True:
-        	try:
-	        	os.system('scp ~/IDP-Waterkering/applicatie/db.sqlite3 pi@192.168.137.2:~/IDP-Waterkering/applicatie/db.sqlite3')
-	        	print('db.sqlite3 has been copied to the other RPi')
-	        except:
-	        	print('db.sqlite3 copying has failed')
+		if settings.RASPBERRY == True and settings.RASPBERRY_MAIN == True:
+			try:
+				os.system('scp ~/IDP-Waterkering/applicatie/db.sqlite3 pi@192.168.137.2:~/IDP-Waterkering/applicatie/db.sqlite3')
+				print('db.sqlite3 has been copied to the other RPi')
+			except:
+				print('db.sqlite3 copying has failed')
 
 
 
