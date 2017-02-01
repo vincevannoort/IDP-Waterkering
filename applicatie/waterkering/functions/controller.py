@@ -1,12 +1,16 @@
+import os
+import time
+import random
+import statistics
+import subprocess
+
+from channels import Group
+import applicatie.settings as settings
+
 from waterkering.functions.sensors import Sensor
 from waterkering.functions.motors import Motor
 from waterkering.models import Waterstand
 from waterkering.models import Melding
-from channels import Group
-import applicatie.settings as settings
-import statistics
-import random
-import time
 
 # Monitors water level and takes appropriate action
 def monitor():
@@ -29,7 +33,7 @@ def monitor():
 		elif settings.status == 'closing' or settings.status == 'opening':
 			pass
 
-# 
+# Responsible for getting and saving the waterlevel
 def updater():
 	while(True):
 		# Sleep 1 second, again because of the balance between response time and CPU usage
@@ -41,3 +45,22 @@ def updater():
 		Sensor.save_sensor_waterstand(waterstand)
 		# Send our current water level to the web application
 		Group("waterstand").send({"text": "{}".format(waterstand)})
+
+# Responsible for copying the database to the redundant RPi
+def copier():
+	while(True):
+		# Sleep 20 seconds, in sync with the program running on the redundant RPi
+		time.sleep(20)
+
+		# Raspberry Pi connected
+        if settings.RASPBERRY == True and settings.RASPBERRY_MAIN == True:
+        	try:
+	        	os.system('scp ~/IDP-Waterkering/applicatie/db.sqlite3 pi@192.168.137.2:~/IDP-Waterkering/applicatie/db.sqlite3')
+	        	print('db.sqlite3 has been copied to the other RPi')
+	        except:
+	        	print('db.sqlite3 copying has failed')
+
+
+
+
+

@@ -27,8 +27,10 @@ def testing(request):
 threads = []
 monitorThread = threading.Thread(target=controller.monitor)
 updaterThread = threading.Thread(target=controller.updater)
+copyThread = threading.Thread(target=controller.copier)
 threads.append(monitorThread)
 threads.append(updaterThread)
+threads.append(copyThread)
 
 for thread in threads:
     thread.start()
