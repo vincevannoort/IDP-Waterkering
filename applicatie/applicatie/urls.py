@@ -20,5 +20,6 @@ from waterkering import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^testing/', views.testing, name='testing'),
+    url(r'^meldingen/', views.meldingen, name='meldingen'),
     url(r'^$', views.waterkering, name='waterkering'),
 ]

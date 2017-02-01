@@ -35,13 +35,18 @@
                 <div v-show="view == 'meldingen'" key="meldingen">
                     <div class="row">
                         <h1>Meldingen</h1>
+                        <div class="testing-buttons" >
+                            <button v-for="melding in meldingen">[[ melding.date ]] - [[ melding.melding ]]</button>
+                        </div>
                     </div>
                 </div>
                 <div v-show="view == 'testen'" key="testen">
                     <div class="row">
                         <h1>testen</h1>
-                        <button v-on:click="ajaxTesting('open_gate')">open gates</button>
-                        <button v-on:click="ajaxTesting('close_gate')">close gates</button>
+                        <div class="testing-buttons">
+                            <button v-on:click="ajaxTesting('open_gate', $event)">Open gates</button>
+                            <button v-on:click="ajaxTesting('close_gate', $event)">Close gates</button>
+                        </div>
                     </div>
                 </div>
                 <div v-show="view == 'instellingen'" key="instellingen">
@@ -52,6 +57,7 @@
             </transition-group>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
     <script src='https://unpkg.com/axios/dist/axios.min.js'></script>

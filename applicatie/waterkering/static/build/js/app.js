@@ -8,8 +8,9 @@ function initVue() {
         delimiters: ['[[',']]'],
         data: {
             view: 'waterstand',
+            meldingen: [],
             waterstand: 0,
-            animatedWaterstand: 0
+            animatedWaterstand: 0,
         },
         computed: {
             status: function() {
@@ -26,28 +27,41 @@ function initVue() {
                 }
             }
         },
+        created: function() {
+            console.log('created');
+            axios.get('/meldingen').then(function (response) {
+                app.meldingen.push(response.data.meldingen);
+                app.meldingen = app.meldingen[0];
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
         watch: {
             waterstand: function(newValue, oldValue) {
-              var vm = this
-              var animationFrame
+              var vm = this;
+              var animationFrame;
               function animate (time) {
-                TWEEN.update(time)
-                animationFrame = requestAnimationFrame(animate)
+                TWEEN.update(time);
+                animationFrame = requestAnimationFrame(animate);
               }
               new TWEEN.Tween({ tweeningNumber: oldValue }).easing(TWEEN.Easing.Quadratic.Out).to({ tweeningNumber: newValue }, 500).onUpdate(function () {
                   vm.animatedWaterstand = this.tweeningNumber.toFixed(0)
                 }).onComplete(function () {
                   cancelAnimationFrame(animationFrame)
-                }).start() 
-               animationFrame = requestAnimationFrame(animate)
+                }).start();
+              animationFrame = requestAnimationFrame(animate);
             }
         },
         methods: {
             changeView: function(view) {
-                this.view = view
+                this.view = view;
             },
-            ajaxTesting: function(testFunction) {
-                axios.post('/testing/?function=' + testFunction).then(function (response) { console.log(response); }).catch(function (error) { console.log(error); });
+            ajaxTesting: function(testFunction, event) {
+                axios.post('/testing/?function=' + testFunction).then(function (response) {
+                    event.srcElement.setAttribute('done', 'true');
+                    setTimeout(function(){ event.srcElement.setAttribute('done', 'false'); }, 1000);
+                }).catch(function (error) { console.log(error); });
             }
         }
     });
@@ -121,7 +135,7 @@ function updateChart(waterstand) {
     labels = chartInstance.data.xLabels;
     data.shift();
     labels.shift();
-    data.push(waterstand)
+    data.push(waterstand);
     time = moment().format('H:mm:ss');
     labels.push(time);
     chartInstance.update();
@@ -135,11 +149,4 @@ function initSocket() {
         updateChart(e.data);
         app._data.waterstand = e.data;
     }
-
-    socket.onopen = function() {
-        console.log('start requesting:');
-    }
-
-    // Call onopen directly if socket is already open
-    if (socket.readyState == WebSocket.OPEN) socket.onopen();
 } initSocket();

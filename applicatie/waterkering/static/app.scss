@@ -1,3 +1,6 @@
+// fonts
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 // colors
 $blue: #050621;
 $lightblue: #101E36;
@@ -127,4 +130,36 @@ canvas {
     span {
         transition: color 1s ease-in-out;
     }
+}
+
+// testing buttons
+.testing-buttons {
+    display: flex;
+    button {
+        padding: 3rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid lighten($lightblue, 5%);
+        border-radius: 5px;
+        background: transparent;
+        font-family: 'lato';
+        font-weight: 200;
+        font-style: italic;
+        font-size: 1rem;
+        color: white;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background: $lightblue;
+        }
+
+        &[done='true'] {
+            background: #67e267;
+        }
+    }
+}
+
+// outlines
+* {
+    outline: none;
 }
