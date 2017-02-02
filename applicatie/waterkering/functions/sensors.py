@@ -40,7 +40,7 @@ class Sensor:
 
                 # check if waterlevel exceeds max height
                 if distance >= settings.WATER_HEIGHT_IN_CM: 
-                    distance = 1
+                    distance = 99
 
                 actual_distance = round(settings.WATER_HEIGHT_IN_CM - distance, 2)
                 print(actual_distance)
