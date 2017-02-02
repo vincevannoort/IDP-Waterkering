@@ -37,6 +37,7 @@ class Sensor:
                 # compute elapsed time based on waves
                 elapsed = stop-start
                 distance = (elapsed * 34300) / 2
+                print(round(distance, 2))
                 return distance
                 
             return measure_waterstand()
