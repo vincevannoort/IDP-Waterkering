@@ -17,18 +17,18 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
    Om de Raspberry Pi's met elkaar verbinding te kunnen laten maken, moet ervoor worden gezorgt dat de Raspberry Pi's een statisch IP hebben. Hiervoor moeten op beide Raspberry Pi's het netwerk interface bestand worden aangepast.
    Raspberry Pi 1
    ```sudo nano /etc/network/interfaces```  
-   ```auto eth0
+```auto eth0
 iface eth0 inet static
 address 192.137.0.1
-netmask 255.255.255.0```  
+netmask 255.255.255.0
+```  
    Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`
    Raspberry Pi 2
    ```sudo nano /etc/network/interfaces```  
    ```auto eth0
 iface eth0 inet static
 address 192.137.0.2
-netmask 255.255.255.0
-```  
+netmask 255.255.255.0```  
    Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`
    Hierna kun je de verbinding testen door op Raspberry Pi 1 te pingen door ```ping 192.168.137.2``` in te voeren en vanaf Raspberry Pi 2 te pingen door ```ping 192.168.137.1``` in te voeren.
 
