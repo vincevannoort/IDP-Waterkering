@@ -27,7 +27,8 @@ netmask 255.255.255.0```
    ```auto eth0
 iface eth0 inet static
 address 192.137.0.2
-netmask 255.255.255.0```  
+netmask 255.255.255.0
+```  
    Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`
    Hierna kun je de verbinding testen door op Raspberry Pi 1 te pingen door ```ping 192.168.137.2``` in te voeren en vanaf Raspberry Pi 2 te pingen door ```ping 192.168.137.1``` in te voeren.
 
