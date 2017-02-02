@@ -18,19 +18,16 @@ def waterkering(request):
 def meldingen(request):
     return JsonResponse(dict(meldingen=list(Melding.objects.values('melding', 'date'))))
 
-@csrf_exempt 
+@csrf_exempt
 def testing(request):
-    ''' Function for testing purposes, get function from url and run from the testing class '''
     Testing.test(request.GET.get('function', ''))
     return HttpResponse('')
 
 threads = []
 monitorThread = threading.Thread(target=controller.monitor)
 updaterThread = threading.Thread(target=controller.updater)
-copyThread = threading.Thread(target=controller.copier)
 threads.append(monitorThread)
 threads.append(updaterThread)
-threads.append(copyThread)
 
 for thread in threads:
     thread.start()

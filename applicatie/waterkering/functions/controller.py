@@ -36,31 +36,25 @@ def monitor():
 # Responsible for getting and saving the waterlevel
 def updater():
 	while(True):
-		# Sleep 1 second, again because of the balance between response time and CPU usage
-		time.sleep(1)
+		# do 20 measures before copying the database which takes about 20 seconds
+		for i in range(20):
+			# Sleep 1 second, again because of the balance between response time and CPU usage
+			time.sleep(1)
 
-		# Get the current water level from the sensor
-		waterstand = Sensor.get_sensor_waterstand(Waterstand.objects.latest('id').waterstand)
-		# Save the current water level to our database
-		Sensor.save_sensor_waterstand(waterstand)
-		# Send our current water level to the web application
-		Group("waterstand").send({"text": "{}".format(waterstand)})
+			# Get the current water level from the sensor
+			waterstand = Sensor.get_sensor_waterstand(Waterstand.objects.latest('id').waterstand)
+			# Save the current water level to our database
+			Sensor.save_sensor_waterstand(waterstand)
+			# Send our current water level to the web application
+			Group("waterstand").send({"text": "{}".format(waterstand)})
 
-# Responsible for copying the database to the redundant RPi
-def copier():
-	while(True):
-		# Sleep 20 seconds, in sync with the program running on the redundant RPi
-		time.sleep(20)
-
-		# Raspberry Pi connected
+		# when 20 measures has finished, copy database
 		if settings.RASPBERRY == True and settings.RASPBERRY_MAIN == True:
 			try:
 				os.system('scp ~/IDP-Waterkering/applicatie/db.sqlite3 pi@192.168.137.2:~/IDP-Waterkering/applicatie/db.sqlite3')
 				print('db.sqlite3 has been copied to the other RPi')
 			except:
 				print('db.sqlite3 copying has failed')
-
-
-
+	
 
 
