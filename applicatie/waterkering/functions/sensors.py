@@ -38,7 +38,7 @@ class Sensor:
                 elapsed = stop-start
                 distance = (elapsed * 34300) / 2
                 print(round(distance, 2))
-                return distance
+                return round(distance, 2)
                 
             return measure_waterstand()
 
