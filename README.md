@@ -21,7 +21,7 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
 iface eth0 inet static
 address 192.137.0.1
 netmask 255.255.255.0
-```  
+```
    Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`
    Raspberry Pi 2
    ```sudo nano /etc/network/interfaces```  
