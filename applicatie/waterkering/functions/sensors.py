@@ -37,8 +37,14 @@ class Sensor:
                 # compute elapsed time based on waves
                 elapsed = stop-start
                 distance = (elapsed * 34300) / 2
-                print(round(distance, 2))
-                return round(distance, 2)
+
+                # check if waterlevel exceeds max height
+                if distance >= settings.WATER_HEIGHT_IN_CM: 
+                    distance = 1
+
+                actual_distance = round(settings.WATER_HEIGHT_IN_CM - distance, 2)
+                print(actual_distance)
+                return actual_distance
                 
             return measure_waterstand()
 
