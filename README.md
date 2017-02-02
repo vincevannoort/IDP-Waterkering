@@ -14,8 +14,7 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
 1. Configureer Raspberry Pi's
    Formateer beide SD-cards via Win32DiskImager. Installeer Raspbian met behulp van een iso bestand. Verdere instructies te lezen op: [Raspbian install](https://www.raspberrypi.org/documentation/installation/installing-images/)
 2. Configureer netwerk
-   Om de Raspberry Pi's met elkaar verbinding te kunnen laten maken, moet ervoor worden gezorgt dat de Raspberry Pi's een statisch IP hebben. Hiervoor moeten op beide Raspberry Pi's het netwerk interface bestand worden aangepast.
-   
+   Om de Raspberry Pi's met elkaar verbinding te kunnen laten maken, moet ervoor worden gezorgt dat de Raspberry Pi's een statisch IP hebben. Hiervoor moeten op beide Raspberry Pi's het netwerk interface bestand worden aangepast.  
    Raspberry Pi 1
    ```
    sudo nano /etc/network/interfaces
@@ -26,8 +25,7 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
    address 192.137.0.1
    netmask 255.255.255.0
    ```
-   Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`
-   
+   Sla op met `ctrl+o`, `enter` gevolgd door `ctrl+x`  
    Raspberry Pi 2
    ```
    sudo nano /etc/network/interfaces
@@ -60,16 +58,14 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
    ```
 
 6. Applicatie starten op beide Raspberry Pi's
-   Op beide Raspberry Pi's moet de applicatie draaien. Op de eerste moet de Django server draaien, en op de tweede het failover script.
-   
+   Op beide Raspberry Pi's moet de applicatie draaien. Op de eerste moet de Django server draaien, en op de tweede het failover script.  
    Raspberry Pi 1
    ```
    cd IDP-Waterkering/applicatie
    ```
    ```
    sudo python3 manage.py runserver
-   ```
-   
+   ```  
    Raspberry Pi 2
    ```
    cd IDP-Waterkering/redudantie
