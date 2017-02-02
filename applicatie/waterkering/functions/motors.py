@@ -38,7 +38,7 @@ if settings.RASPBERRY == True:
 
 class Motor:
 
-    def close_gate(angle=90):
+    def close_gate(angle=settings.TURN_ANGLE):
 
         # Only allow to close doors when current status is opened
         if settings.status == 'opened':
@@ -98,7 +98,7 @@ class Motor:
             Melding(melding = 'Tried closing but failed because doors where not open').save()
 
 
-    def open_gate(angle=90):
+    def open_gate(angle=settings.TURN_ANGLE):
 
         # Only allow to open doors when current status is closed
         if settings.status == 'closed':
