@@ -46,7 +46,22 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
    Hierna kun je de verbinding testen door op Raspberry Pi 1 te pingen door ```ping 192.168.137.2``` in te voeren en vanaf Raspberry Pi 2 te pingen door ```ping 192.168.137.1``` in te voeren.
 
 4. **Configureer SSH op beide Raspberry Pi's**  
-   MOET NOG GESCHREVEN WORDEN
+   Om de applicatie verbinding te laten maken met de Raspberry Pi's wordt een SSH verbinding gebruikt. Deze moet op beide Raspberry Pi's worden ingesteld. Voer op beide Raspberry Pi's het onderstaande commando in.
+   ```
+   sudo ssh-keygen
+   ```
+   ```
+   sudo raspi-config
+   ```  
+   Raspberry Pi 1
+   ```
+   ssh-copy-id -i ~/.ssh/id_rsa.pub 192.137.0.2
+   ```  
+   Raspberry Pi 2
+   ```
+   ssh-copy-id -i ~/.ssh/id_rsa.pub 192.137.0.1
+   ```  
+   Hierna kun je de verbinding testen door op Raspberry Pi 1 het commando ```ssh 192.137.0.2``` in te voeren en vanaf Raspberry Pi 2 het commando ```ssh 192.137.0.1``` in te voeren.
 
 5. **Installeer Django en Django Channels**  
    Raspbian komt geisntalleerd met Python3 en de package manager pip. Door middel van pip kun je de juiste packages installeren die ervoor zorgen dat de webserver kan draaien.
