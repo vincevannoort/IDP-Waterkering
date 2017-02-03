@@ -15,7 +15,7 @@ De applicatie voor de IDP Waterkering levert een Proof of Concept voor een water
    Formateer beide SD-cards via Win32DiskImager. Installeer Raspbian met behulp van een iso bestand. Verdere instructies te lezen op: [Raspbian install](https://www.raspberrypi.org/documentation/installation/installing-images/)
    
 2. **Configureer verbinding Raspberry Pi's met sensoren en motoren**  
-   Om de Raspberry Pi's met de sensors en motoren te verbinden in een schema gemaakt in Fritzing. Met de benodigdheden kun je de sensors en motoren aan het breadboard koppelen en het breadboard aan de twee Raspberry Pi's. [Fritzing instructie LINK WIJZIGEN](https://www.raspberrypi.org/documentation/installation/installing-images/)
+   Om de Raspberry Pi's met de sensors en motoren te verbinden in een schema gemaakt in Fritzing. Met de benodigdheden kun je de sensors en motoren aan het breadboard koppelen en het breadboard aan de twee Raspberry Pi's. [Fritzing instructie](http://i.imgur.com/pFn06OUg.png)
 
 3. **Configureer netwerk**  
    Om de Raspberry Pi's met elkaar verbinding te kunnen laten maken, moet ervoor worden gezorgt dat de Raspberry Pi's een statisch IP hebben. Hiervoor moeten op beide Raspberry Pi's het netwerk interface bestand worden aangepast.  
